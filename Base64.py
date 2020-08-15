@@ -30,11 +30,16 @@ def Decode(inp):
     if inp[-1] != '=' and inp[-2] != '=':
         for i in inp:
           Dec+=Binery[i]  
-    return ''.join(chr(int(Dec[i*8:i*8+8], 2)) for i in range(len(Dec)//8))
-    #if inp[-1] == '=' and inp[-2] != '=':
-
-    #if inp[-1] == '=' and inp[-2] == '=':
-
-
+        return ''.join(chr(int(Dec[i*8:i*8+8], 2)) for i in range(len(Dec)//8))
+    elif inp[-2] == '=':
+        for i in inp[0:-2]:
+            Dec += Binery[i]
+        Dec = Dec[0:-4]
+        return ''.join(chr(int(Dec[i*8:i*8+8], 2)) for i in range(len(Dec)//8))
+    elif inp[-1] == '=':
+        for i in inp[0:-1]:
+            Dec += Binery[i]
+        Dec = Dec[0:-2]
+        return ''.join(chr(int(Dec[i*8:i*8+8], 2)) for i in range(len(Dec)//8))
 print(Encode("ABC"))
-print(Decode("QUJD"))
+print(Decode("bGVhc3VyZS4="))
